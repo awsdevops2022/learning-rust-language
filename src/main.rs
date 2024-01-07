@@ -44,9 +44,9 @@ fn main() {
     println!("This is my first Rust program !!");
     // The below line comments out a block of code.
     /*println!("Number is: {}", 1);*/ 
-    let mut city = "Hyd"; // we should "mut" only if we intend to change it again.
+    let mut city = "OH"; // we should "mut" only if we intend to change it again.
     println!("I stay in {}", city);
-    println!("{} is interested to learn {}", "Krishna", "Rust");
+    println!("{} is interested to learn {}", "Mark", "Rust");
     println!("{name} knows other programming languages like {language} as well", 
     name="Krishna", language = "Python");
     println!("Learning language :");
