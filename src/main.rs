@@ -42,12 +42,19 @@ fn using_const() {
     println!("The id is {} and routing is from {}", ID_1, REGION) // local and global variables
 }
 
+fn working_on_operators() {
+    let a = 2;
+    let b = 4;
+    println!("Addition: {}", a + b);
+    println!("Multiplication: {}", a * b);
+    println!("Div: {}", b / a);
+}
 fn main() {
     println!("Hello, world!");
     println!("This is my first Rust program !!");
     // The below line comments out a block of code.
     /*println!("Number is: {}", 1);*/ 
-    let mut city = "OH"; // we should "mut" only if we intend to change it again.
+    let mut city = "OHIO"; // we should "mut" only if we intend to change it again.
     println!("I stay in {}", city);
     println!("{} is interested to learn {}", "Mark", "Rust");
     println!("{name} knows other programming languages like {language} as well", 
@@ -82,6 +89,7 @@ fn main() {
     array_data_type();
     tuple_data_type();
     using_const();
+    working_on_operators();
 }
 
 // fn main() {
