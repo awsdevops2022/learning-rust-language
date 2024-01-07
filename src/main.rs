@@ -1,3 +1,4 @@
+// const is always in UPPER_SNAKE_CASE
 const REGION:&str = "us-east-1"; // global scope. Defining data type is mandatory
 
 // This is a comment.
