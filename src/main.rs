@@ -1,6 +1,11 @@
 /*
 const is always in UPPER_SNAKE_CASE
 */
+
+/*Expressions do not include ending semicolons. 
+If you add a semicolon to the end of an expression, 
+you turn it into a statement, and it will then not return a value*/
+
 const REGION:&str = "us-east-1"; // global scope. Defining data type is mandatory
 
 // This is a comment.
@@ -394,8 +399,368 @@ fn main() {
     let mut name = "Rust";
     // Here n will be 4 not 2 as it gets changed because of pass by reference
     println!("The output is {}", return_fn(&mut name, &mut n));
+
+    let x = 2;
+    let y = 4;
+
+    let (sq, peri) = return_fn_multiple_values(x, y);
+    println!("square_rectangle:{} and perimeter_rectangle:{}", sq, peri);
+
+    let mut arr = [1,4,8,5];
+
+    println!("Before function call:{:?}",&mut arr);
+
+    parsing_arrays_to_fn(&mut arr);
+
+    println!("After function call{:?}", arr);
+
+    let arr1 = ["Rust", "Python", "Go"];
+
+    return_arrays_fn(arr1);
+
+
+    println!(" Number = 12 : {}", test_divisibility_by_3_4(12));
+    println!(" Number = 9  : {}", test_divisibility_by_3_4(9));
+    println!(" Number = 8  : {}", test_divisibility_by_3_4(8));
+    println!(" Number = 23 : {}", test_divisibility_by_3_4(23));
+
+
+    let arr = [1, 2, 3, 4, 5];
+
+    println!("The squared array is {:?}", arr_square(arr));
+
+    // Strings in Rust
+    // empty string
+    let str_1 = String::new();
+
+    let convert_str_new_string_object = str_1.to_string();
+
+    println!("The string is: {}", convert_str_new_string_object);
+    println!("The string length is: {}", convert_str_new_string_object.len());
+
+    // from string literal
+
+    let str_2 = "Rust";
+
+    let convert_str_literal_string_object = str_2.to_string();
+
+    println!("Length is : {}", convert_str_literal_string_object.len());
+
+    // using String::from() method
+
+    let str_3 = String::from("Rust Language");
+
+    println!("The length of str_3 is: {}", str_3.len());
+
+    string_objects();
+
+    string_iteration();
+
+    string_concantenation();
+
+    string_slicing();
+
+    let my_sport = "football";
+    some_random_func(my_sport);
+    println!("Accessing after function call: {}", my_sport);
+
+    let game = String::from("boxing");
+    some_random_func_1(game);
+    // println!("Accessing after function call: {}", game); // cannot borrow here
+
+    let  my_str= "This is a comprehensive course in Rust programming language on Educative. Read it with full concentration to grasp the content of the course".to_string();
+
+    let results = extract_specific_words_from_string(my_str);
+
+    println!("{}", results);
+
+    vector_example();
+
+    let mut arr_challenge = vec![1, 5, 7, 9];
+
+    println!("{:?}", vector_challenge(&mut arr_challenge));
 }
 
+
+fn return_fn_multiple_values(x: i32, y: i32) -> (i32, i32){
+    let square_rectangle = x * y;
+    let perimeter_rectangle = 2 * (x + y);
+    println!("Doing calculations!!");
+    (square_rectangle, perimeter_rectangle)
+}
+
+// parsing an array with pass by reference
+fn parsing_arrays_to_fn (arr:&mut [i32;4]) {
+
+    println!("The array: {:?}", arr);
+    
+    println!("The first element is {} and 2nd element is {}", arr[0], arr[1]);
+
+    let mut sum = 0;
+    for i in 0..4 {
+        sum += arr[i];
+    }
+
+    println!("The sum of array values: {}", sum);
+
+    arr[2] = -4;
+    arr[arr.len() - 1] = 6;
+    println!("The changed array is:{:?}", arr);
+
+    let val = [1, 4, 9, 3];
+    pass_by_value(val);
+    println!("{:?}", val);
+}
+
+// parsing an array with pass by value
+fn pass_by_value(mut val: [i32;4]) {
+    val[0] = 0;
+    val[2] = 7;
+    println!("The value of 1st element {} and 2nd element {}",val[0], val[2]);
+    println!("{:?}", val);
+}
+
+fn return_arrays_fn(arr1: [&str;3]) -> [&str; 3] {
+    arr1
+}
+
+fn test_divisibility_by_3_4(n: i32) -> i32 {
+
+    if (n % 4) == 0 && (n % 3) == 0 {
+        0
+    } else if (n % 3) == 0 && (n % 4) != 0 {
+        1
+    } else if (n % 4) == 0 && (n % 3) != 0 {
+        2
+    } else {
+        -1
+    }
+}
+
+fn arr_square(mut arr: [i32;5]) -> [i32; 5] {
+    for i in 0..5 {
+        arr[i] = arr[i] * arr[i];
+    }
+    arr
+}
+
+fn string_objects() {
+
+    // calculating the capacity = number of bytes allocated to string
+    // It's always equal or less than the length of the string.
+    let str1 = String::from("Rust Language");
+
+    println!("Capacity of {} is {}", str1, str1.capacity());
+
+    // substring part of string. return bool.
+    let str2 = "Rustaceans";
+    println!("Is 'Rust' part of {}? \nAnswer: {}", str2, str2.contains("Rust"));
+
+    // replace a substring in a string
+    let str3 = "Rust Program";
+    println!("{} is now {}", str3, str3.replace("Program", "Language"));
+
+    // trimming a string or leading and trailing white spaces and lines
+
+    let str4 = String::from("  My Rust  ");
+    println!("Trimming '{}' to '{}'", str4, str4.trim());
+}
+
+
+// String iteration
+fn string_iteration() {
+    let language = String::from("Rust Programming");
+    for i in language.chars() {
+        println!("{}", i);
+    }
+
+    for i in language.split_whitespace() {
+        println!("{}", i);
+    }
+    let language = String::from("Rust, programming");
+    for i in language.split(",") {
+        println!("{}", i)
+    }
+}
+
+fn string_concantenation() {
+    let program_name = String::from("Rust");
+
+    let experience = String::from("4");
+
+    let time = "days".to_string();
+
+    // using format! macro
+
+    let result = format!("{1} {2} of {0}", program_name, experience, time);
+
+    println!("{}", result);
+
+    // using push method
+    let mut p_name = String::from("Rus");
+
+    p_name.push('t'); // only character
+
+    println!("{}", p_name);
+
+    // using + operator
+    let results = program_name + " " + &experience + " " + &time;
+    println!("{}", results);
+
+    let mut lang = String::from("Rust");
+    // push a string
+    lang.push_str(" Programming");
+
+    println!("This is {}.", lang);
+}
+
+
+
+fn string_slicing() {
+    let string = "Rust Programming".to_string();
+    let slice = &string[0..3]; 
+    println!("{}", slice);
+}
+
+// String object which is growable vs primitive string (&str) use in functions
+
+fn some_random_func(my_sport:&str) {
+    println!("{}", my_sport);
+}
+
+fn some_random_func_1(game:String) {
+    println!("{}", game);
+}
+
+
+fn extract_specific_words_from_string(my_str:String) -> String {
+    let mut new_str = String::new();
+    for word in my_str.split(" ") {
+        if word.starts_with("c") {
+            new_str.push_str(word);
+            new_str.push(' ');
+        }
+    }
+    new_str.pop();
+    new_str
+}
+
+
+// Vectors
+fn vector_example() {
+    let my_vec = vec![1, 3, 9, 21];
+    println!("My vector array is: {:?}", my_vec);
+
+    let mut vec_arr = Vec::new();
+
+    // adding elements to array
+    vec_arr.push(1);
+    vec_arr.push(2);
+    vec_arr.push(6);
+    vec_arr.push(-4);
+
+    println!("The new array is : {:?}", vec_arr);
+
+    // removing the element from array
+    println!("Removing last element -4 in array: {:?}", vec_arr.pop());
+
+    // removing specific value from array using index
+    println!("Removing second element i.e. 2 from array: {:?}", vec_arr.remove(1));
+
+    // Now finding the length of the array
+    println!("The length of the array is : {}", vec_arr.len());
+
+    // checking if the element 6 is in array.
+    println!("Is element 6 part of the array?: {}", vec_arr.contains(&6));
+
+    // accessing element in an array
+    println!("The final array is: {:?}", vec_arr);
+    println!("The last element in the array: {}", vec_arr[vec_arr.len()-1]);
+
+    // handling out of bound index values
+    if let Some(element) = vec_arr.get(6) {
+        println!("The element is: {}", element);
+    } else {
+        println!("The provided index is out of bounds!!");
+    }
+
+    match vec_arr.get(1) {
+        Some(x) => {
+            println!("Value at given index is: {}", x);
+        }
+        None => println!("Out of bounds !!")
+    }
+
+    // looping in vector array
+    for i in my_vec {
+        println!("{}", i);
+    }
+
+    // to remove an element from an array we need to know the
+    // index and use .remove(index). To avoid that -
+    let mut vec_array = vec![1, 3, 9, 28, 12];
+
+    let value = 9; // the element 9 will be removed
+
+    let index = vec_array.iter().position(|&e| e == value).unwrap();
+
+
+    match vec_array.get(index) {
+        Some(x) => println!("Value: {}", x),
+        None => println!("Not found")
+    }
+
+    vec_array.remove(index);
+
+    println!("Updated vector: {:?}", vec_array);
+
+    // loops and mutate values
+
+    for i in vec_array.iter_mut() {
+        *i *= 3;
+    }
+    println!("{:?}", vec_array);
+
+    let mut new_vec = vec![1, 2, 3, 4, 5];
+
+    println!("Vector: {:?}", new_vec);
+
+    for each in new_vec.iter_mut() {
+        *each = *each + 4;
+    }
+
+    new_vec.push(23);
+
+    println!("Updated Vector: {:?}", new_vec);
+
+    println!("Vector length: {}", new_vec.len());
+
+    // slicing a vector
+
+    let sliced_val = &mut new_vec[2..4];
+
+    println!("sliced arr: {:?}", sliced_val);
+
+}
+
+
+fn vector_challenge(vec_arr: &mut Vec<u32>) -> &mut Vec<u32> {
+    let middle = (vec_arr.len()) / 2;
+
+    vec_arr.pop();
+
+    vec_arr.remove(middle-1);
+
+    let mut sum = 0;
+
+    for i in vec_arr.iter() {
+        sum += i;
+    }
+
+    vec_arr.push(sum);
+
+    vec_arr
+}
 // fn main() {
 //     eprintln!("Error: Couldn't complete the task!");
 // }
